@@ -17,4 +17,7 @@ public partial class FilterRuleNode : SyntaxNode
     /// This property is required and must be initialized.
     /// </summary>
     public required SyntaxNode Value { get; set; }
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitFilterRuleNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitFilterRuleNode(this);
 }

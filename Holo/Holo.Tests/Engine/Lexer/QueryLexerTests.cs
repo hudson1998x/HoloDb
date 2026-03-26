@@ -280,7 +280,7 @@ namespace Holo.Tests.Engine.Lexer
         [Fact]
         public void Skips_Unknown_Characters()
         {
-            var tokens = LexerTestHelper.Lex("@@@");
+            var tokens = LexerTestHelper.Lex("#%^");
             Assert.Empty(tokens);
         }
 

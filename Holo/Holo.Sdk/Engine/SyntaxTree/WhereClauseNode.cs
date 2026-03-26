@@ -11,4 +11,7 @@ public partial class WhereClauseNode : SyntaxNode
     /// Each node in <see cref="Filters"/> represents a condition or a logical grouping of conditions.
     /// </summary>
     public required NodeList Filters;
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitWhereClauseNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitWhereClauseNode(this);
 }

@@ -1,6 +1,7 @@
 ﻿using Holo.Sdk.Engine.Exceptions;
 using Holo.Sdk.Engine.Lexer;
 using Holo.Sdk.Engine.Registries;
+using Holo.Sdk.Engine.Schema;
 using Holo.Sdk.Engine.SyntaxTree;
 
 namespace Holo.Sdk.Engine.Productions;
@@ -31,6 +32,12 @@ public static class Parser
                 TokenKind.KeywordFunction => TryProductions(
                     [
                         Grammar.FunctionDefinition()
+                    ],
+                    ref context
+                ),
+                TokenKind.KeywordType => TryProductions(
+                    [
+                        Grammar.TypeDefinition()
                     ],
                     ref context
                 ),
@@ -65,6 +72,19 @@ public static class Parser
             {
                 RegisterStoredFunction(functionDef, source);
                 continue;
+            }
+
+            // Handle type definitions: generate struct and register, then add to root
+            if (node is TypeDefinitionNode typeDef)
+            {
+                var visitor = new TypeBuilderVisitor(source);
+                visitor.VisitTypeDefinitionNode(typeDef);
+                
+                // Register all generated types
+                foreach (var kvp in visitor.GeneratedTypes)
+                {
+                    SchemaRegistry.Register(kvp.Value);
+                }
             }
             
             // Successfully parsed a node, add it to root and continue

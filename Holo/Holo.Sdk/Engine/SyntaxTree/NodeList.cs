@@ -28,4 +28,7 @@ public partial class NodeList : SyntaxNode
     /// Gets or sets the list of syntax nodes contained in this node list.
     /// </summary>
     public List<SyntaxNode> Nodes { get; set; }
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitNodeList(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitNodeList(this);
 }

@@ -32,8 +32,12 @@ public static partial class Grammar
                 // Colon separator  
                 Production.TokenIs(TokenKind.Colon, _ => new EmptyNode()),
 
-                // Parameter type
-                Production.TokenIs(TokenKind.Identifier, t => new IdentifierNode { Value = t }).As("type")
+                // Parameter type (can be Identifier or type keywords like int, string)
+                Production.Choice(
+                    Production.TokenIs(TokenKind.Identifier, t => new IdentifierNode { Value = t }),
+                    Production.TokenIs(TokenKind.KeywordInt, t => new IdentifierNode { Value = t }),
+                    Production.TokenIs(TokenKind.KeywordString, t => new IdentifierNode { Value = t })
+                ).As("type")
             },
             captured =>
             {

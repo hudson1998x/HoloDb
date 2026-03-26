@@ -25,4 +25,7 @@ public partial class VariableDeclarationNode : SyntaxNode
     /// This property is required and must be initialized.
     /// </summary>
     public required SyntaxNode Value { get; set; }
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitVariableDeclarationNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitVariableDeclarationNode(this);
 }

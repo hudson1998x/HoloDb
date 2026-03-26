@@ -22,7 +22,11 @@ public static partial class Grammar
                 Production.TokenIs(TokenKind.DollarSign, _ => new EmptyNode()),
                 Production.TokenIs(TokenKind.Identifier, t => new IdentifierNode { Value = t }).As("name"),
                 Production.TokenIs(TokenKind.Colon, _ => new EmptyNode()),
-                Production.TokenIs(TokenKind.Identifier, t => new IdentifierNode { Value = t }).As("type"),
+                Production.Choice(
+                    Production.TokenIs(TokenKind.Identifier, t => new IdentifierNode { Value = t }),
+                    Production.TokenIs(TokenKind.KeywordInt, t => new IdentifierNode { Value = t }),
+                    Production.TokenIs(TokenKind.KeywordString, t => new IdentifierNode { Value = t })
+                ).As("type"),
                 Production.TokenIs(TokenKind.Equal, _ => new EmptyNode()),
                 Production.Choice(
                     Production.Lazy(() => FunctionCall()),
@@ -116,7 +120,11 @@ public static partial class Grammar
                 
                 Production.TokenIs(TokenKind.RightParenthesis, _ => new EmptyNode()),
                 Production.TokenIs(TokenKind.Colon, _ => new EmptyNode()),
-                Production.TokenIs(TokenKind.Identifier, t => new IdentifierNode { Value = t }).As("returnType"),
+                Production.Choice(
+                    Production.TokenIs(TokenKind.Identifier, t => new IdentifierNode { Value = t }),
+                    Production.TokenIs(TokenKind.KeywordInt, t => new IdentifierNode { Value = t }),
+                    Production.TokenIs(TokenKind.KeywordString, t => new IdentifierNode { Value = t })
+                ).As("returnType"),
                 Production.TokenIs(TokenKind.LeftBracket, _ => new EmptyNode()),
                 
                 Production.OneOrMore(

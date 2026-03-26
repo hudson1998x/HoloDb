@@ -10,4 +10,7 @@ public partial class QueryNode : SyntaxNode
     /// Initialized to an empty list.
     /// </summary>
     public readonly List<SyntaxNode> Children = new List<SyntaxNode>();
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitQueryNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitQueryNode(this);
 }

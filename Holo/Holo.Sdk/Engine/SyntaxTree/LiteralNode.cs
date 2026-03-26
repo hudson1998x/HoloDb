@@ -12,4 +12,7 @@ public partial class LiteralNode : SyntaxNode
     /// This property is required and must be initialized.
     /// </summary>
     public required Token Value { get; set; }
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitLiteralNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitLiteralNode(this);
 }

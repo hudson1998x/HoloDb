@@ -26,4 +26,7 @@ public partial class FunctionParameterNode : SyntaxNode
     /// This property is null if no default value is specified.
     /// </summary>
     public SyntaxNode? DefaultValue { get; set; }
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitFunctionParameterNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitFunctionParameterNode(this);
 }

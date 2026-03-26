@@ -7,4 +7,6 @@
 /// </summary>
 public class EmptyNode : SyntaxNode
 {
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitEmptyNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitEmptyNode(this);
 }
