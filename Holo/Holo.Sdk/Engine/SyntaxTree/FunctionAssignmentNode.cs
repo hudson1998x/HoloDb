@@ -17,4 +17,7 @@ public partial class FunctionAssignmentNode : SyntaxNode
     /// This property is required and must be initialized.
     /// </summary>
     public required FunctionCallNode Function;
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitFunctionAssignmentNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitFunctionAssignmentNode(this);
 }

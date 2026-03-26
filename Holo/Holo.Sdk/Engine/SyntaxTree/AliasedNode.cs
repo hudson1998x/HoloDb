@@ -20,4 +20,7 @@ public partial class AliasedNode : SyntaxNode
     /// Gets or sets the token representing the alias identifier.
     /// </summary>
     public required IdentifierNode Alias { get; set; }
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitAliasedNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitAliasedNode(this);
 }

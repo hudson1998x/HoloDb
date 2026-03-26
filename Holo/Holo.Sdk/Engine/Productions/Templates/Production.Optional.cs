@@ -53,9 +53,9 @@ namespace Holo.Sdk.Engine.Productions
                     return node; // child matched, return the node
                 }
 
-                // child did not match — rewind and succeed with null
+                // child did not match — rewind and return empty node to allow sequence to continue
                 context.Rewind(startPos);
-                return null;
+                return new EmptyNode();
             }
         }
     }

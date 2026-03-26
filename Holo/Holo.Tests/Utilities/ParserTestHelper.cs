@@ -222,6 +222,58 @@ namespace Holo.Sdk.Engine.Tests
         }
 
         /// <summary>
+        /// Asserts that a node is a <see cref="TypeDefinitionNode"/> with the expected type name.
+        /// </summary>
+        /// <param name="node">The syntax node to check.</param>
+        /// <param name="expectedTypeName">The expected type name token kind (e.g., "Identifier").</param>
+        /// <returns>The <see cref="TypeDefinitionNode"/> instance.</returns>
+        public static TypeDefinitionNode AssertTypeDefinition(SyntaxNode? node, string expectedTypeName)
+        {
+            var typeDef = AssertNodeType<TypeDefinitionNode>(node);
+            Assert.Equal(expectedTypeName, typeDef.TypeName.Value.Kind.ToString());
+            return typeDef;
+        }
+
+        /// <summary>
+        /// Asserts that a node is a <see cref="FieldDefinitionNode"/> with the expected field name.
+        /// </summary>
+        /// <param name="node">The syntax node to check.</param>
+        /// <param name="expectedFieldName">The expected field name.</param>
+        /// <returns>The <see cref="FieldDefinitionNode"/> instance.</returns>
+        public static FieldDefinitionNode AssertFieldDefinition(SyntaxNode? node, string expectedFieldName)
+        {
+            var fieldDef = AssertNodeType<FieldDefinitionNode>(node);
+            Assert.Equal(expectedFieldName, TokenToString(fieldDef.FieldName.Value));
+            return fieldDef;
+        }
+
+        /// <summary>
+        /// Asserts that a node is a <see cref="FieldPropertyNode"/> with the expected property name.
+        /// </summary>
+        /// <param name="node">The syntax node to check.</param>
+        /// <param name="expectedPropertyName">The expected property name.</param>
+        /// <returns>The <see cref="FieldPropertyNode"/> instance.</returns>
+        public static FieldPropertyNode AssertFieldProperty(SyntaxNode? node, string expectedPropertyName)
+        {
+            var prop = AssertNodeType<FieldPropertyNode>(node);
+            Assert.Equal(expectedPropertyName, TokenToString(prop.PropertyName.Value));
+            return prop;
+        }
+
+        /// <summary>
+        /// Asserts that a node is an <see cref="AttributeNode"/> with the expected attribute name.
+        /// </summary>
+        /// <param name="node">The syntax node to check.</param>
+        /// <param name="expectedAttributeName">The expected attribute name.</param>
+        /// <returns>The <see cref="AttributeNode"/> instance.</returns>
+        public static AttributeNode AssertAttribute(SyntaxNode? node, string expectedAttributeName)
+        {
+            var attr = AssertNodeType<AttributeNode>(node);
+            Assert.Equal(expectedAttributeName, TokenToString(attr.AttributeName.Value));
+            return attr;
+        }
+
+        /// <summary>
         /// Converts a <see cref="Token"/> to its string representation based on its kind.
         /// </summary>
         /// <param name="token">The token to convert.</param>

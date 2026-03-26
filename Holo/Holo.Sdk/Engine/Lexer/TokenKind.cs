@@ -83,8 +83,44 @@
         /// <summary>'return' keyword - not allowed in function bodies.</summary>
         KeywordReturn,
 
+        /// <summary>'type' keyword for defining schema types.</summary>
+        KeywordType,
+
+        /// <summary>'default' keyword for field default values.</summary>
+        KeywordDefault,
+
+        /// <summary>'primary' keyword for marking primary key fields.</summary>
+        KeywordPrimary,
+
+        /// <summary>'unique' keyword for marking unique constraint.</summary>
+        KeywordUnique,
+
+        /// <summary>'sensitive' keyword for marking sensitive fields.</summary>
+        KeywordSensitive,
+
+        /// <summary>'null' keyword for nullable field specification.</summary>
+        KeywordNullable,
+
+        /// <summary>'comment' keyword for field documentation.</summary>
+        KeywordComment,
+
+        /// <summary>'validate' keyword for field validation.</summary>
+        KeywordValidate,
+
+        /// <summary>'auto_increment' keyword for auto-incrementing fields.</summary>
+        KeywordAutoIncrement,
+
+        /// <summary>'int' keyword for integer type.</summary>
+        KeywordInt,
+
+        /// <summary>'string' keyword for string type.</summary>
+        KeywordString,
+
         /// <summary>Dollar sign '$' used to prefix variable names in function declarations.</summary>
         DollarSign,
+
+        /// <summary>At sign '@' used for schema attributes.</summary>
+        At,
 
         // -------------------------
         // Operators

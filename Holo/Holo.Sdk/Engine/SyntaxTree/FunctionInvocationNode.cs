@@ -20,4 +20,7 @@ public partial class FunctionInvocationNode : SyntaxNode
     /// This property is required and must be initialized.
     /// </summary>
     public required NodeList Arguments { get; set; }
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitFunctionInvocationNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitFunctionInvocationNode(this);
 }

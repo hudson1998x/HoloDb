@@ -26,4 +26,7 @@ public partial class BinaryExpressionNode : SyntaxNode
     /// This property is required and must be initialized.
     /// </summary>
     public required SyntaxNode Right;
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitBinaryExpressionNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitBinaryExpressionNode(this);
 }

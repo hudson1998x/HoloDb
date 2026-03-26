@@ -34,4 +34,7 @@ public partial class FunctionDefinitionNode : SyntaxNode
     /// This property is required and must be initialized.
     /// </summary>
     public required NodeList Body { get; set; }
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitFunctionDefinitionNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitFunctionDefinitionNode(this);
 }

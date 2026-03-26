@@ -11,4 +11,7 @@ public partial class FieldNode : SyntaxNode
     /// This property is required and must be initialized.
     /// </summary>
     public required IdentifierNode Name;
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitFieldNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitFieldNode(this);
 }

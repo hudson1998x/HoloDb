@@ -78,6 +78,7 @@
                 case '=': kind = TokenKind.Equal; break;
                 case '$': kind = TokenKind.DollarSign; break;
                 case ':': kind = TokenKind.Colon; break;
+                case '@': kind = TokenKind.At; break;
                 case '\'': ParseSingleQuotedString(span, ref pointer, tokens, ref tokenCount); return true;
                 case '"': ParseDoubleQuotedString(span, ref pointer, tokens, ref tokenCount); return true;
                 default: return false;
@@ -103,7 +104,9 @@
             {
                 "endsWith", "equals", "is", "contains", "null", "not",
                 "false", "startsWith", "true", "within", "moreThan",
-                "lessThan", "in", "where", "function", "return"
+                "lessThan", "in", "where", "function", "return",
+                "type", "default", "primary", "unique", "sensitive",
+                "nullable", "comment", "validate", "auto_increment", "int", "string"
             };
             TokenKind[] kinds =
             {
@@ -111,7 +114,11 @@
                 TokenKind.KeywordContains, TokenKind.NullLiteral, TokenKind.KeywordNot,
                 TokenKind.BooleanLiteral, TokenKind.KeywordStartsWith, TokenKind.BooleanLiteral,
                 TokenKind.KeywordWithin, TokenKind.MoreThan, TokenKind.LessThan, TokenKind.KeywordIn,
-                TokenKind.KeywordWhere, TokenKind.KeywordFunction, TokenKind.KeywordReturn
+                TokenKind.KeywordWhere, TokenKind.KeywordFunction, TokenKind.KeywordReturn,
+                TokenKind.KeywordType, TokenKind.KeywordDefault, TokenKind.KeywordPrimary,
+                TokenKind.KeywordUnique, TokenKind.KeywordSensitive, TokenKind.KeywordNullable,
+                TokenKind.KeywordComment, TokenKind.KeywordValidate, TokenKind.KeywordAutoIncrement,
+                TokenKind.KeywordInt, TokenKind.KeywordString
             };
 
             for (int i = 0; i < keywords.Length; i++)

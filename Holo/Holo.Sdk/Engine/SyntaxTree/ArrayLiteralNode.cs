@@ -11,4 +11,7 @@ public partial class ArrayLiteralNode : SyntaxNode
     /// This property is required and must be initialized.
     /// </summary>
     public required NodeList Items { get; set; }
+
+    public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitArrayLiteralNode(this);
+    public override void Accept(IVisitor visitor) => visitor.VisitArrayLiteralNode(this);
 }

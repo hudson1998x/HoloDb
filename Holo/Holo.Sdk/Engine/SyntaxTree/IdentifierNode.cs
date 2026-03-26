@@ -18,5 +18,8 @@ namespace Holo.Sdk.Engine.SyntaxTree
         /// A required <see cref="Token"/> representing the name or alias.
         /// </value>
         public required Token Value { get; set; }
+
+        public override TResult Accept<TResult>(IVisitor<TResult> visitor) => visitor.VisitIdentifierNode(this);
+        public override void Accept(IVisitor visitor) => visitor.VisitIdentifierNode(this);
     }
 }
