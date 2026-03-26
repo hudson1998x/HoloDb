@@ -1,5 +1,6 @@
 ﻿using Holo.Sdk.Engine.Exceptions;
 using Holo.Sdk.Engine.Lexer;
+using Holo.Sdk.Engine.Registries;
 using Holo.Sdk.Engine.SyntaxTree;
 
 namespace Holo.Sdk.Engine.Productions;
@@ -27,6 +28,12 @@ public static class Parser
         {
             var node = context.Peek()?.Kind switch
             {
+                TokenKind.KeywordFunction => TryProductions(
+                    [
+                        Grammar.FunctionDefinition()
+                    ],
+                    ref context
+                ),
                 TokenKind.Identifier => TryProductions(
                     [ 
                         Grammar.NamedBlock(),
@@ -53,11 +60,54 @@ public static class Parser
                 throw new SyntaxErrorException(errorToken, source);
             }
             
+            // Handle function definitions: register and continue (don't add to query)
+            if (node is FunctionDefinitionNode functionDef)
+            {
+                RegisterStoredFunction(functionDef, source);
+                continue;
+            }
+            
             // Successfully parsed a node, add it to root and continue
             rootNode.Children.Add(node);
         }
         
         return rootNode;
+    }
+
+    /// <summary>
+    /// Registers a parsed function definition in the function registry.
+    /// </summary>
+    /// <param name="functionDef">The function definition node to register.</param>
+    /// <param name="source">The source text for extracting token text.</param>
+    private static void RegisterStoredFunction(FunctionDefinitionNode functionDef, in ReadOnlySpan<char> source)
+    {
+        var parameterNames = new List<string>();
+        var parameterTypes = new Dictionary<string, Type>();
+        
+        if (functionDef.Parameters.Nodes != null)
+        {
+            foreach (var param in functionDef.Parameters.Nodes)
+            {
+                if (param is FunctionParameterNode paramNode)
+                {
+                    var paramName = paramNode.Name.Value.GetText(source);
+                    parameterNames.Add(paramName);
+                    // Type mapping would happen at runtime when types are resolved
+                    parameterTypes[paramName] = typeof(object); // Placeholder until type resolution
+                }
+            }
+        }
+        
+        var storedFunction = new StoredFunction
+        {
+            Name = functionDef.Name.Value.GetText(source),
+            Parameters = [.. parameterNames],
+            ParameterTypes = parameterTypes,
+            BodyAST = functionDef,
+            ReturnType = typeof(object) // Placeholder until type resolution
+        };
+        
+        FunctionRegistry.Register(storedFunction);
     }
     
     /// <summary>

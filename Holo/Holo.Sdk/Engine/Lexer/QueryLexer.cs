@@ -76,6 +76,8 @@
                 case '>': kind = TokenKind.MoreThan; break;
                 case '!': kind = TokenKind.KeywordNot; break;
                 case '=': kind = TokenKind.Equal; break;
+                case '$': kind = TokenKind.DollarSign; break;
+                case ':': kind = TokenKind.Colon; break;
                 case '\'': ParseSingleQuotedString(span, ref pointer, tokens, ref tokenCount); return true;
                 case '"': ParseDoubleQuotedString(span, ref pointer, tokens, ref tokenCount); return true;
                 default: return false;
@@ -101,7 +103,7 @@
             {
                 "endsWith", "equals", "is", "contains", "null", "not",
                 "false", "startsWith", "true", "within", "moreThan",
-                "lessThan", "in", "where"
+                "lessThan", "in", "where", "function", "return"
             };
             TokenKind[] kinds =
             {
@@ -109,7 +111,7 @@
                 TokenKind.KeywordContains, TokenKind.NullLiteral, TokenKind.KeywordNot,
                 TokenKind.BooleanLiteral, TokenKind.KeywordStartsWith, TokenKind.BooleanLiteral,
                 TokenKind.KeywordWithin, TokenKind.MoreThan, TokenKind.LessThan, TokenKind.KeywordIn,
-                TokenKind.KeywordWhere
+                TokenKind.KeywordWhere, TokenKind.KeywordFunction, TokenKind.KeywordReturn
             };
 
             for (int i = 0; i < keywords.Length; i++)

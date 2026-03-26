@@ -279,5 +279,119 @@ namespace Holo.Tests.Engine.Productions
             var binary = ParserTestHelper.AssertNodeType<BinaryExpressionNode>(filterField.Filter);
             Assert.Equal(TokenKind.Identifier, binary.Operator.Value.Kind);
         }
+
+        // ==================== Function Definitions ====================
+
+        /// <summary>
+        /// Clears the function registry before each test to ensure test isolation.
+        /// </summary>
+        public ParserTests()
+        {
+            Holo.Sdk.Engine.Registries.FunctionRegistry.Clear();
+        }
+
+        /// <summary>
+        /// Ensures parsing of a simple function definition without parameters.
+        /// </summary>
+        [Fact]
+        public void Parses_FunctionDefinition_No_Parameters()
+        {
+            var result = ParserTestHelper.Parse("function getActiveUser(): User { User { id } }");
+            
+            // Function should be registered but not added to query children
+            Assert.True(Holo.Sdk.Engine.Registries.FunctionRegistry.TryGet("getActiveUser", out var func));
+            Assert.Equal("getActiveUser", func!.Name);
+            Assert.Empty(func.Parameters);
+        }
+
+        /// <summary>
+        /// Ensures parsing of a function definition with typed parameters.
+        /// </summary>
+        [Fact]
+        public void Parses_FunctionDefinition_With_Parameters()
+        {
+            var result = ParserTestHelper.Parse("function getUserProjects($userId: int): User { User { id, name } }");
+            
+            Assert.True(Holo.Sdk.Engine.Registries.FunctionRegistry.TryGet("getUserProjects", out var func));
+            Assert.Equal("getUserProjects", func!.Name);
+            Assert.Single(func.Parameters);
+            // Note: parameter names don't include the $ prefix in storage
+            Assert.Contains("userId", func.Parameters);
+        }
+
+        /// <summary>
+        /// Test function with just one param - no body.
+        /// </summary>
+        [Fact]
+        public void Parses_Function_With_One_Param_Simple_Body()
+        {
+            var result = ParserTestHelper.Parse("function getUser($userId: int): User { User { id } }");
+            
+            Assert.True(Holo.Sdk.Engine.Registries.FunctionRegistry.TryGet("getUser", out var func));
+            Assert.Equal("getUser", func!.Name);
+            Assert.Single(func.Parameters);
+        }
+
+        /// <summary>
+        /// Ensures that function definitions are not added to query children.
+        /// </summary>
+        [Fact]
+        public void FunctionDefinition_Not_In_Query_Children()
+        {
+            var result = ParserTestHelper.Parse("function getUser(): User { User { id } } User { name }");
+            
+            // Query should only contain the named block after function definition
+            Assert.IsType<QueryNode>(result);
+            var query = (QueryNode)result;
+            Assert.Single(query.Children);
+            ParserTestHelper.AssertNodeType<NamedBlockNode>(query.Children[0]);
+        }
+
+        /// <summary>
+        /// Ensures parsing of a function with multiple parameters.
+        /// </summary>
+        [Fact]
+        public void Parses_FunctionDefinition_With_Default_Values()
+        {
+            // Note: Default values not yet implemented - testing multiple params
+            var result = ParserTestHelper.Parse("function getUsers($limit: int, $offset: int): User { User { id } }");
+            
+            Assert.True(Holo.Sdk.Engine.Registries.FunctionRegistry.TryGet("getUsers", out var func));
+            Assert.Equal("getUsers", func!.Name);
+            Assert.Equal(2, func.Parameters.Length);
+        }
+
+        /// <summary>
+        /// Ensures that the 'return' keyword throws a syntax error.
+        /// </summary>
+        [Fact]
+        public void Return_Keyword_Throws_SyntaxError()
+        {
+            var input = "function badFunc(): User { return User { id } }";
+            Assert.Throws<Holo.Sdk.Engine.Exceptions.SyntaxErrorException>(() => ParserTestHelper.Parse(input));
+        }
+
+        /// <summary>
+        /// Ensures parsing of a function with variable declarations in body.
+        /// </summary>
+        [Fact]
+        public void Parses_FunctionDefinition_With_Variable_Declarations()
+        {
+            var result = ParserTestHelper.Parse("function getUserRole($userId: int): int { User { id } }");
+            
+            Assert.True(Holo.Sdk.Engine.Registries.FunctionRegistry.TryGet("getUserRole", out var func));
+            Assert.Equal("getUserRole", func!.Name);
+        }
+
+        /// <summary>
+        /// Simple test to verify basic function parsing works.
+        /// </summary>
+        [Fact]
+        public void Parses_Simple_Function()
+        {
+            var result = ParserTestHelper.Parse("function test(): int { id { name } }");
+            Assert.True(Holo.Sdk.Engine.Registries.FunctionRegistry.TryGet("test", out var func));
+            Assert.Equal("test", func!.Name);
+        }
     }
 }

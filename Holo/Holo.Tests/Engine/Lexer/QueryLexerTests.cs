@@ -18,7 +18,7 @@ namespace Holo.Tests.Engine.Lexer
         [Fact]
         public void Parses_All_Symbols()
         {
-            var input = "[](){}<>,!=";
+            var input = "[](){}<>,!=$:";
             var tokens = LexerTestHelper.Lex(input);
 
             var expected = new[]
@@ -33,7 +33,9 @@ namespace Holo.Tests.Engine.Lexer
                 TokenKind.MoreThan,
                 TokenKind.Comma,
                 TokenKind.KeywordNot,
-                TokenKind.Equal
+                TokenKind.Equal,
+                TokenKind.DollarSign,
+                TokenKind.Colon
             };
 
             Assert.Equal(expected.Length, tokens.Length);
@@ -61,6 +63,8 @@ namespace Holo.Tests.Engine.Lexer
         [InlineData("startsWith", TokenKind.KeywordStartsWith)]
         [InlineData("endsWith", TokenKind.KeywordEndsWith)]
         [InlineData("within", TokenKind.KeywordWithin)]
+        [InlineData("function", TokenKind.KeywordFunction)]
+        [InlineData("return", TokenKind.KeywordReturn)]
         public void Parses_Exact_Keywords(string input, TokenKind expected)
         {
             var tokens = LexerTestHelper.Lex(input);
