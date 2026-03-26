@@ -1,4 +1,6 @@
-﻿namespace Holo.Sdk.Engine.SyntaxTree
+﻿using Holo.Sdk.Engine.Lexer;
+
+namespace Holo.Sdk.Engine.SyntaxTree
 {
     /// <summary>
     /// Represents an identifier in the syntax tree.
@@ -10,11 +12,11 @@
     public class IdentifierNode : SyntaxNode
     {
         /// <summary>
-        /// Gets or sets the string value of the identifier.
+        /// Gets or sets the Token value of the identifier.
         /// </summary>
         /// <value>
-        /// A required <see cref="string"/> representing the name or alias.
+        /// A required <see cref="Token"/> representing the name or alias.
         /// </value>
-        public required string Value { get; set; }
+        public required Token Value { get; set; }
     }
 }
