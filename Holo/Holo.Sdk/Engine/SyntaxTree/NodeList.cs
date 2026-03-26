@@ -7,6 +7,14 @@
 public partial class NodeList : SyntaxNode
 {
     /// <summary>
+    /// Initializes a new instance of the <see cref="NodeList"/> class.
+    /// </summary>
+    public NodeList()
+    {
+        Nodes = [];
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="NodeList"/> class
     /// with the specified collection of nodes.
     /// </summary>

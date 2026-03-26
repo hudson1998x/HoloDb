@@ -77,6 +77,15 @@
         /// <summary>'where' keyword</summary>
         KeywordWhere,
 
+        /// <summary>'function' keyword for defining stored functions.</summary>
+        KeywordFunction,
+
+        /// <summary>'return' keyword - not allowed in function bodies.</summary>
+        KeywordReturn,
+
+        /// <summary>Dollar sign '$' used to prefix variable names in function declarations.</summary>
+        DollarSign,
+
         // -------------------------
         // Operators
         // -------------------------
@@ -89,6 +98,9 @@
 
         /// <summary>Equality operator '='.</summary>
         Equal, 
+
+        /// <summary>Colon ':' used for type annotations in function parameters.</summary>
+        Colon, 
 
         // -------------------------
         // Special
