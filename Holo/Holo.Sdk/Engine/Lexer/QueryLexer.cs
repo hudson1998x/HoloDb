@@ -101,14 +101,15 @@
             {
                 "endsWith", "equals", "is", "contains", "null", "not",
                 "false", "startsWith", "true", "within", "moreThan",
-                "lessThan", "in"
+                "lessThan", "in", "where"
             };
             TokenKind[] kinds =
             {
                 TokenKind.KeywordEndsWith, TokenKind.Equal, TokenKind.KeywordIs,
                 TokenKind.KeywordContains, TokenKind.NullLiteral, TokenKind.KeywordNot,
                 TokenKind.BooleanLiteral, TokenKind.KeywordStartsWith, TokenKind.BooleanLiteral,
-                TokenKind.KeywordWithin, TokenKind.MoreThan, TokenKind.LessThan, TokenKind.KeywordIn 
+                TokenKind.KeywordWithin, TokenKind.MoreThan, TokenKind.LessThan, TokenKind.KeywordIn,
+                TokenKind.KeywordWhere
             };
 
             for (int i = 0; i < keywords.Length; i++)

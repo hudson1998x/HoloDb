@@ -4,7 +4,7 @@
 /// Represents an assignment of a function call to a field in the syntax tree.
 /// For example: <c>total = sum(values)</c>.
 /// </summary>
-public class FunctionAssignmentNode : SyntaxNode
+public partial class FunctionAssignmentNode : SyntaxNode
 {
     /// <summary>
     /// Gets or sets the field to which the function result is assigned.

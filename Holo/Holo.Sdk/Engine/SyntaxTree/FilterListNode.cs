@@ -4,7 +4,7 @@
 /// Represents a list of filter rules in the syntax tree.
 /// Typically used to group multiple filter expressions together.
 /// </summary>
-public class FilterListNode : SyntaxNode
+public partial class FilterListNode : SyntaxNode
 {
     /// <summary>
     /// Gets or sets the collection of filter rules.

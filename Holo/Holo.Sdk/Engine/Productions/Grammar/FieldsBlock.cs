@@ -47,6 +47,7 @@ public static partial class Grammar
     public static Production BaseField()
     {
         return Production.Choice(
+            WhereClause(),         // e.g., where { ... }
             FilterField(),         // e.g., id { above 20, below 40 }
             NamedBlock(),          // e.g., creatorUser { ... }
             FunctionAssignment(),  // e.g., userCount subQuery(...)

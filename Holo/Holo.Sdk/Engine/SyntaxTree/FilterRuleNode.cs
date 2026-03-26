@@ -4,7 +4,7 @@
 /// Represents a single filter rule in the syntax tree, consisting of an operator
 /// and a value. For example: <c>age &gt; 18</c>.
 /// </summary>
-public class FilterRuleNode : SyntaxNode
+public partial class FilterRuleNode : SyntaxNode
 {
     /// <summary>
     /// Gets or sets the operator of the filter rule (e.g., &gt;, &lt;, ==).

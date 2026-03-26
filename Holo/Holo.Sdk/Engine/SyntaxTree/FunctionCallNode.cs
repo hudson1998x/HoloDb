@@ -4,7 +4,7 @@
 /// Represents a function call in the syntax tree, including the function name
 /// and its argument list. For example: <c>sum(values)</c>.
 /// </summary>
-public class FunctionCallNode : SyntaxNode
+public partial class FunctionCallNode : SyntaxNode
 {
     /// <summary>
     /// Gets or sets the name of the function being called.

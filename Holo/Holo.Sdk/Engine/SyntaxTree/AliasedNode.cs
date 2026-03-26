@@ -9,7 +9,7 @@ namespace Holo.Sdk.Engine.SyntaxTree;
 /// An <see cref="AliasedNode"/> is typically used in constructs where a value,
 /// expression, or symbol is given an alternate name within the syntax tree.
 /// </remarks>
-public class AliasedNode : SyntaxNode
+public partial class AliasedNode : SyntaxNode
 {
     /// <summary>
     /// Gets or sets the underlying syntax node being aliased.

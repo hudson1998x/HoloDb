@@ -8,7 +8,7 @@ namespace Holo.Sdk.Engine.SyntaxTree;
 /// This class does not expose any properties and can be used as an empty node
 /// or as a base class for other more specific syntax node types.
 /// </summary>
-public partial class SyntaxNode : DebugPrint
+public partial class IdentifierNode : DebugPrint
 {
     /// <summary>
     /// Appends a debug representation of this node to the provided <see cref="StringBuilder"/>.
@@ -17,11 +17,15 @@ public partial class SyntaxNode : DebugPrint
     /// <param name="builder">The <see cref="StringBuilder"/> to append to.</param>
     /// <param name="source">The source code span corresponding to this node.</param>
     /// <param name="tabIndent">The indentation level (number of tab stops) to apply.</param>
-    public virtual void DebugPrint(StringBuilder builder, in ReadOnlySpan<char> source, int tabIndent = 0)
+    public override void DebugPrint(StringBuilder builder, in ReadOnlySpan<char> source, int tabIndent = 0)
     {
         var indent = new string(' ', tabIndent * 4);
         
-        builder.AppendLine($"{indent}{GetType().Name} (Default from SyntaxNode){{");
+        builder.AppendLine($"{indent}IdentifierNode {{");
+        builder.AppendLine($"{indent}    Token {{");
+        builder.AppendLine($"{indent}        Kind({Value.Kind}) StartPosition({Value.StartPosition}) EndPosition({Value.EndPosition})");
+        builder.AppendLine($"{indent}    }}");
+        builder.AppendLine($"{indent}    Value '{source.Slice(Value.StartPosition, Value.Length)}'");
         builder.AppendLine($"{indent}}}");
     }
 }
