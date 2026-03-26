@@ -1,5 +1,7 @@
 ﻿
+using System.Text;
 using Holo.Sdk.Engine.Lexer;
+using Holo.Sdk.Engine.Productions;
 
 var source = (
     """
@@ -17,7 +19,7 @@ var source = (
             title, 
             status 
         }, 
-        subQuery(
+        userCount subQuery(
             User {
                  count(id) 
             }, 
@@ -28,7 +30,7 @@ var source = (
                 }
             }
         ),
-        subQuery( 
+        completedOrders subQuery( 
             Orders {
                 count(id) as total
             },
@@ -47,3 +49,13 @@ foreach (var token in tokens)
 {
     Console.WriteLine($"Token ({token.Kind}, Start: {token.StartPosition}, End: {token.EndPosition}, Value: '{source.Substring(token.StartPosition, token.Length)}')");
 }
+
+var node = Parser.Parse(tokens, source);
+var builder = new StringBuilder();
+
+node.DebugPrint(builder, source);
+
+Console.WriteLine("====================================================");
+Console.WriteLine("Tree preview");
+Console.WriteLine("====================================================");
+Console.WriteLine(builder.ToString());
