@@ -20,12 +20,9 @@ public static partial class Grammar
     {
         return Production.TokenIs(TokenKind.Identifier, t =>
         {
-            return new FieldNode
+            return new IdentifierNode()  // Return IdentifierNode directly, not wrapped in FieldNode
             {
-                Name = new IdentifierNode()
-                {
-                    Value = t
-                }
+                Value = t
             };
         });
     }

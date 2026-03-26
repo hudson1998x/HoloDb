@@ -4,7 +4,7 @@
 /// Represents a field or property in the syntax tree, typically used within
 /// objects, structs, or similar constructs.
 /// </summary>
-public class FieldNode : SyntaxNode
+public partial class FieldNode : SyntaxNode
 {
     /// <summary>
     /// Gets or sets the name of the field.

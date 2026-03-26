@@ -6,7 +6,7 @@ namespace Holo.Sdk.Engine.SyntaxTree;
 /// Represents a binary expression in the syntax tree, consisting of a left-hand side,
 /// an operator, and a right-hand side. For example: <c>a + b</c>.
 /// </summary>
-public class BinaryExpressionNode : SyntaxNode
+public partial class BinaryExpressionNode : SyntaxNode
 {
     /// <summary>
     /// Gets or sets the left-hand side of the binary expression.

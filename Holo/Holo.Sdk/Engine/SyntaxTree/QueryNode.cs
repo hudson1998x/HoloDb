@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a query in the syntax tree, which can contain multiple child nodes.
 /// </summary>
-public class QueryNode : SyntaxNode
+public partial class QueryNode : SyntaxNode
 {
     /// <summary>
     /// Gets the list of child nodes contained in this query.

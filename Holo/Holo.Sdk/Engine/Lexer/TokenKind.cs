@@ -73,6 +73,9 @@
 
         /// <summary>'in' keyword.</summary>
         KeywordIn, 
+        
+        /// <summary>'where' keyword</summary>
+        KeywordWhere,
 
         // -------------------------
         // Operators

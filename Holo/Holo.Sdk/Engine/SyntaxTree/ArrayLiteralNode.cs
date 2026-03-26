@@ -4,7 +4,7 @@
 /// Represents an array literal in the syntax tree.
 /// For example: <c>[1, 2, 3]</c>.
 /// </summary>
-public class ArrayLiteralNode : SyntaxNode
+public partial class ArrayLiteralNode : SyntaxNode
 {
     /// <summary>
     /// Gets or sets the list of items contained in the array literal.

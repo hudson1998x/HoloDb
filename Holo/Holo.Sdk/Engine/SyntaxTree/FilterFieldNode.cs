@@ -4,7 +4,7 @@
 /// Represents a field with an associated filter in the syntax tree.
 /// Typically used for expressions like <c>field[filter]</c>.
 /// </summary>
-public class FilterFieldNode : SyntaxNode
+public partial class FilterFieldNode : SyntaxNode
 {
     /// <summary>
     /// Gets or sets the field being filtered.

@@ -4,7 +4,7 @@
 /// Represents a list of syntax nodes in the syntax tree.
 /// Useful for grouping multiple child nodes under a single parent node.
 /// </summary>
-public class NodeList : SyntaxNode
+public partial class NodeList : SyntaxNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="NodeList"/> class
